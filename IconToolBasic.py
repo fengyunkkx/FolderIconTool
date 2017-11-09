@@ -24,7 +24,7 @@ def main():
                 for file in files:
                         if file.endswith(".ico"):
                                 print (os.path.join(root, file))
-                                os.rename(root +"/"+ file, root +"/"+"foldericon.ico")
+                                os.rename(root +"\\"+ file, root +"/"+"foldericon.ico")
                                 counter += 1
 
         print ('检测完毕！\n')
@@ -57,21 +57,20 @@ def main():
                 for file in files:
                         if file.endswith(".ico"):
                                 ## 为 desktop.ini 写入配置
-                                inifile = open(root +"/"+ 'desktop.ini','w')
+                                os.system('cd ' + root + '&& attrib -h "desktop.ini"')
+                                inifile = open(root +"\\"+ 'desktop.ini','w')
                                 inifile.write(iniline)
                                 inifile.close()
                                 print ('正在为 ' + os.path.join(root, file) + ' 添加配置信息')
-                                cmd = 'attrib +h "foldericon.ico"'
-                                os.system(cmd)
+                                os.system('cd ' + root + '&& attrib +h "foldericon.ico"')
                                 
         for root, dirs, files in os.walk(DirPath, topdown=False):
                 for file in files:
                         if file.endswith(".ini"):
-                                cmd = 'attrib +h "desktop.ini"'
-                                os.system(cmd) ## 将 desktop.ini 设为隐藏
-                                print(cmd)
-        print ('新建完毕！\n')
-
+                                print(root)
+                                os.system('cd ' + root + '&& attrib +h "desktop.ini"') ## 将 desktop.ini 设为隐藏
+        print ('新建完毕！')
+        print ('已将图标和配置文件隐藏。\n')
 
         ## 4. 将文件夹设置为只读。
 
@@ -79,10 +78,11 @@ def main():
 
         ## 设置父文件夹只读
         print (root)
-        os.system('attrib +r //d ' + root)
+        os.system('cd ' + root + '&& attrib +r /d')
         
         print ('设置完成！\n')
-
+        
+        os.system('cd ' + root + '&& attrib -r "IconToolsBasic.py"')
 
 
 ## 开始执行
@@ -90,4 +90,3 @@ def main():
 main()
 
 ## 结束任务
-
