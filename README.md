@@ -6,6 +6,7 @@
 
 1. 你只需要把喜欢的图标放进各个文件夹中，就像这样——
 
+```
 D:\
 |- 常用文件
 |-|- 工具库
@@ -16,6 +17,7 @@ D:\
 |-|-|- Game Center.ico
 |-|- 视频库
 |-|-|- Movie.ico
+```
 
 2. 然后将 IconTool 放在「常用文件」这个文件夹中。
 
@@ -34,6 +36,7 @@ A little tool for folder icon.
 
 1.Put one icon in every folder, like this
 
+```
 D:\
 |- Common Documents
 |-|- Tools
@@ -44,6 +47,7 @@ D:\
 |-|-|- Game Center.ico
 |-|- Movies
 |-|-|- Movie.ico
+```
 
 2. Put IconTool in the "Common Documents".
 
@@ -58,11 +62,15 @@ Test it in a unimportant folder before you use it.
 ## Nov 9, 2017 - Update IconTool 0.0.3
 
 A version that can be used normally.
+
 Put .ico file in every folder, then start the IconTool.py.
 
 ## Nov 9, 2017 - Update IconTool 0.0.2
+
 Rebuild the IconTool.
 
 ## Oct 30, 2017 - Update IconTool 0.0.1
+
 How to use :
+
 Put a '.ico' file in a folder, then start this python file. The '.ico' file will be the folder's icon. That's all.
