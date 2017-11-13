@@ -1,89 +1,159 @@
 # -*- coding: UTF-8 -*-
 
 import os
+import stat
 
-##总体思路：
-##1. 检测当前目录下是否有 .ico 文件。
-##2. 获取 .ico 文件的文件名。
-##3. 新建一个 desktop.ini 文件，设为隐藏。
-##4. 将文件夹设置为只读。
-
-
-Const_Image_Format = [".ico"] ## 设置需要寻找的文件格式为 .ico
+## 总体思路：
+## 1. 检测当前目录下是否有 .ico 文件。
+## 2. 将文件夹设置为只读。
+## 3. 在每个有图标的目录中新建 desktop.ini 文件，设为隐藏。
 
 def main():
 
-        ## 1. 检测当前目录下是否有 .ico 文件。
+	## -----说明文字-----
+	print ("──────────────────")
+	print ("欢迎使用 FolderIconTool")
+	print ("Design by fengyunkkx")
+	print ("──────────────────\n")
+	
+	print ("─────────────使用方法───────────────")
+	print (" ")
+	print ("1. 首先将图标文件手动放进每个文件夹中。")
+	print ("2. 将 FolderIconTool 放置在希望批量替换文件夹图标的目录下。")
+	print ("3. 运行本程序。")
+	print (" ")
+	print ("────────────────────────────────\n")
+	
+	a = str(input('输入 1 开始设置图标：\n'))
+	if (a == "1"):
+		print("\n开始执行，请勿对文件进行操作。\n")
+		start()
+	else:
+		b = str(input('回车键退出本程序\n'))
+		exit()
+		
+def start():
+	
+	## -----1. 检测当前目录下是否有 .ico 文件。-----
+	
+	iconame = []
+	print ("──────────────────")
+	print ("1. 检测当前目录下是否有 .ico 文件")
+	print ("──────────────────\n")
+	DirPath = os.getcwd()                                           ## DirPath：当前路径
 
-        ## 遍历当前目录下的文件
-        print ('1. 检测当前目录下是否有 .ico 文件')
-        DirPath = os.getcwd()  ## 搜索当前路径
-        print ( "当前路径为：" + DirPath)
-        counter = 0
-        for root, dirs, files in os.walk(DirPath, topdown=False):
-                for file in files:
-                        if file.endswith(".ico"):
-                                print (os.path.join(root, file))
-                                os.rename(root +"\\"+ file, root +"/"+"foldericon.ico")
-                                counter += 1
-
-        print ('检测完毕！\n')
-
-        ## 2. 获取 .ico 文件的文件名。
-
-        print ('2. 正在获取 .ico 文件的文件名')
-
-        print ("发现图标数量为：" + str(counter))
-                
-        print ("已将上述图标重命名为 foldericon.ico")
-
-        print ('获取完毕！\n')
+	print ( "当前路径为：\n"+ DirPath)
+	counter = 0                                                     ## counter：计数
+	
+	print ( "该路径下的图标有：")
+	for root, dirs, files in os.walk(DirPath, topdown=False):       ## 遍历当前目录下的图标文件
+		for file in files:
+			if file.endswith(".ico"):
+				print (os.path.join(root, file))
+				iconame.append(file)
+				## os.rename(root +"\\"+ file, root +"/"+"foldericon.ico")
+				## 早期做法：统一命名为 foldericon.ico
+				counter += 1
+	print ("\n检测完毕！")
+	print ("该目录下共有 " + str(counter) + " 个图标文件。\n")
 
 
+	## 确认操作
+	print ("──────────────────")
+	print ("是否开始将上述图标设为文件夹图标？")
+	print ("──────────────────")
+	print ("（如果同一文件夹下有多个图标，将选取最后一个图标作为文件夹图标。）\n")
+	a = str(input('输入 1 继续：\n'))
+	
+	if (a == "1"):
+		
+		print("\n开始批量设置，请勿对文件进行操作。\n")
 
-        ## 3. 新建一个 desktop.ini 文件，设为隐藏。
 
-        print ('3. 正在新建 desktop.ini 文件')
 
-        ## 将文件夹图标设置为同文件夹下的 iconfile.ico 图标（覆盖原内容）
+		## -----2. 将文件夹设置为只读。-----
+		print ("──────────────────")
+		print ("2. 正在将文件夹设置为只读")
+		print ("──────────────────\n")
+		## 设置父文件夹只读
+		for root, dirs, files in os.walk(DirPath, topdown=False):
+			for file in files:
+				if file.endswith(".ico"):
+					os.chmod(root, stat.S_IREAD)    ## 将带有 .ico 图标文件的目录设为只读。
+					
+					## os.system("cd " + root + "&& attrib +r /d")
+					## 另一种设置方法，需要管理员权限。
+					
+		print ("已将「" + root + "」目录下所有子文件夹设置为只读（不包括文件）。")
+		## os.system("cd " + root + "&& attrib -r IconToolsBasic.py")
+		
+		print ("设置完成！\n")
 
-        ## 配置信息
-        iniline1 = "[.ShellClassInfo]"
-        iniline2 = "IconResource=foldericon.ico,0"
-        iniline = iniline1 + "\n"+ iniline2
 
-        
-        for root, dirs, files in os.walk(DirPath, topdown=False):
-                for file in files:
-                        if file.endswith(".ico"):
-                                ## 为 desktop.ini 写入配置
-                                os.system('cd ' + root + '&& attrib -h "desktop.ini"')
-                                inifile = open(root +"\\"+ 'desktop.ini','w')
-                                inifile.write(iniline)
-                                inifile.close()
-                                print ('正在为 ' + os.path.join(root, file) + ' 添加配置信息')
-                                os.system('cd ' + root + '&& attrib +h "foldericon.ico"')
-                                
-        for root, dirs, files in os.walk(DirPath, topdown=False):
-                for file in files:
-                        if file.endswith(".ini"):
-                                print(root)
-                                os.system('cd ' + root + '&& attrib +h "desktop.ini"') ## 将 desktop.ini 设为隐藏
-        print ('新建完毕！')
-        print ('已将图标和配置文件隐藏。\n')
 
-        ## 4. 将文件夹设置为只读。
+		## -----3. 新建一个 desktop.ini 文件，设为隐藏。-----
+		print ("──────────────────")
+		print ("3. 正在新建 desktop.ini 文件")                        ## 将文件夹图标设置为同文件夹下的 iconfile.ico 图标（覆盖原内容）
+		print ("──────────────────\n")
+		print ("正在获取 .ico 文件的文件名")
+		print ("图标名称为：" + str(iconame))
+		print ("获取完毕！\n")
 
-        print ('4. 正在将文件夹设置为只读')
+		## 配置信息
+		print ("正在生成 .ini 配置文件\n")
+		iniline1 = "[.ShellClassInfo]"
+		i = 0
+		try:
+			for root, dirs, files in os.walk(DirPath, topdown=False):
+				for file in files:
+					if file.endswith(".ico"):
+						## 为 desktop.ini 写入配置
+						print ("正在为 " + file + " 添加配置信息")
+						os.system("cd " + root + "&& attrib -h -s desktop.ini")
+						iniline2 = "IconResource=" + iconame[i] + ",0"
+						i += 1
+						iniline = iniline1 + "\n"+ iniline2
+						inifile = open(root + "\\" + "desktop.ini","w+")
+						inifile.write(iniline)
+						inifile.close()
+						os.system("cd " + root + "&& attrib +h desktop.ini")
+						## 将 desktop.ini 设为隐藏
+		except:
+			print('权限不足，请用管理员身份重新运行 IconTools')
+		finally:
+			print ("执行完毕！配置文件已隐藏。\n")
+			print ("──────────────────")
+			print ("是否强制刷新图标缓存？")
+			print ("──────────────────")
+			print ("（仅在图标未更新的情况下刷新，该操作会关闭所有文件夹窗口。）\n")
+			a = str(input("输入 1 继续：\n"))
+			if (a == "1"):
+				print("\n正在关闭 Windows 外壳程序 Explorer")
+				os.system("taskkill /f /im explorer.exe")
+				print("正在清理「系统图标缓存数据库」")
+				os.system("attrib -h -s -r \"%userprofile%\AppData\Local\IconCache.db\"")
+				os.system("del /f \"%userprofile%\AppData\Local\IconCache.db\"")
+				os.system("attrib /s /d -h -s -r \"%userprofile%\AppData\Local\Microsoft\Windows\Explorer\*\"")
+				os.system("del /f \"%userprofile%\AppData\Local\Microsoft\Windows\Explorer\thumbcache_32.db\"")
+				os.system("del /f \"%userprofile%\AppData\Local\Microsoft\Windows\Explorer\thumbcache_96.db\"")
+				os.system("del /f \"%userprofile%\AppData\Local\Microsoft\Windows\Explorer\thumbcache_102.db\"")
+				os.system("del /f \"%userprofile%\AppData\Local\Microsoft\Windows\Explorer\thumbcache_256.db\"")
+				os.system("del /f \"%userprofile%\AppData\Local\Microsoft\Windows\Explorer\thumbcache_1024.db\"")
+				os.system("del /f \"%userprofile%\AppData\Local\Microsoft\Windows\Explorer\thumbcache_idx.db\"")
+				os.system("del /f \"%userprofile%\AppData\Local\Microsoft\Windows\Explorer\thumbcache_sr.db\"")
+				print("正在清理「系统托盘记忆的图标」")
+				os.system("echo y|reg delete \"HKEY_CLASSES_ROOT\Local Settings\Software\Microsoft\Windows\CurrentVersion\TrayNotify\" /v IconStreams")
+				os.system("echo y|reg delete \"HKEY_CLASSES_ROOT\Local Settings\Software\Microsoft\Windows\CurrentVersion\TrayNotify\" /v PastIconsStream")
+				print("正在重启 Windows 外壳程序 Explorer")
+				os.system("start explorer")
+				print ("执行完毕！\n")
+				print ("（如果图标仍未刷新，请重启电脑。）\n")
+				
+			os.system("pause")
 
-        ## 设置父文件夹只读
-        print (root)
-        os.system('cd ' + root + '&& attrib +r /d')
-        
-        print ('设置完成！\n')
-        
-        os.system('cd ' + root + '&& attrib -r "IconToolsBasic.py"')
-
+	else:
+		b = str(input('回车键退出本程序\n'))
+		exit()
 
 ## 开始执行
 
