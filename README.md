@@ -1,6 +1,42 @@
-# IconTool 中文说明
+# FolderIconTool README
 
-一个批量修改 Windows 文件夹图标的小工具
+A little tool for Windows folder icon.
+
+## How to use it
+
+1. Put one icon in every folder, like this.
+
+```
+D:\
+|- Common Documents
+|-|- Tools
+|-|-|- Tools.ico
+|-|- Pages
+|-|-|- Pages.ico
+|-|- Games
+|-|-|- Game Center.ico
+|-|- Movies
+|-|-|- Movie.ico
+```
+
+2. Put FolderIconTool in the "Common Documents".
+
+3. FolderIconTool will replace the every folders' icon.
+
+Enjoy it !
+
+## WARNING
+
+1. FolderIconTool is secure, it only modifies the `.ini` configuration file. But on the safe side, you'd better try in the empty folder first before use it in the important folder.
+
+2. If there are multiple `.ico` files in the same folder, FolderIconTool will automatically select the last icon as the folder icon.
+
+3. If you refresh the icon cache in the last step and the icon is not changed, just restart the system.
+
+
+# FolderIconTool 中文说明
+
+一个批量修改 Windows 文件夹图标的小工具。
 
 ## 使用方法
 
@@ -19,45 +55,31 @@ D:\
 |-|-|- Movie.ico
 ```
 
-2. 然后将 IconTool 放在「常用文件」这个文件夹中。
+2. 然后将 FolderIconTool 放在「常用文件」这个文件夹中。
 
-3. IconTool 会自动将该目录下的所有文件夹添加图标。
+3. 运行 FolderIconTool，就可以自动将该目录下的所有文件夹添加图标。
 
 ## 注意事项
 
-最好先在空文件夹中尝试一下，以免与预期不符。
+1. 尽管 FolderIconTool 很安全，只会修改 `.ini` 配置文件，但在对重要文件夹设置图标之前。最好先在空文件夹中尝试一下，以免与预期不符。
+
+2. 如果同一文件夹中有多个 `.ico` 文件，自动选取最后的图标作为文件夹图标。
+
+3. 如果在最后一步刷新了图标缓存，图标依然没有更换，只需要重启系统即可。
 
 
-# IconTool Readme
 
-A little tool for folder icon.
+# Update log
 
-## How to use it
+## Nov 13, 2017 - Update FolderIconTool 0.0.4
 
-1.Put one icon in every folder, like this
+Forced refresh function is added.
 
-```
-D:\
-|- Common Documents
-|-|- Tools
-|-|-|- Tools.ico
-|-|- Pages
-|-|-|- Pages.ico
-|-|- Games
-|-|-|- Game Center.ico
-|-|- Movies
-|-|-|- Movie.ico
-```
+Add more description.
 
-2. Put IconTool in the "Common Documents".
+Fix some bug about System permission.
 
-3. IconTool will replace the every folders' icon.
-
-Enjoy it !
-
-## WARNING
-
-Test it in a unimportant folder before you use it.
+Renamed as FolderIconTool.
 
 ## Nov 9, 2017 - Update IconTool 0.0.3
 
@@ -71,6 +93,4 @@ Rebuild the IconTool.
 
 ## Oct 30, 2017 - Update IconTool 0.0.1
 
-How to use :
-
-Put a '.ico' file in a folder, then start this python file. The '.ico' file will be the folder's icon. That's all.
+The new project IconTool.
