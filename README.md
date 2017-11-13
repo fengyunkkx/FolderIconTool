@@ -67,9 +67,15 @@ D:\
 
 3. 如果在最后一步刷新了图标缓存，图标依然没有更换，只需要重启系统即可。
 
-
+4. 我生成了一个测试版的 `.exe`，但是目前很不稳定，如果电脑上有 python 3.5，建议使用 .py 直接运行。
 
 # Update log
+
+## Nov 13, 2017 - Update FolderIconTool 0.0.5
+
+Renamed as FolderIconTool.
+
+Add FolderIconTool.exe releases.
 
 ## Nov 13, 2017 - Update FolderIconTool 0.0.4
 
@@ -79,13 +85,11 @@ Add more description.
 
 Fix some bug about System permission.
 
-Renamed as FolderIconTool.
-
 ## Nov 9, 2017 - Update IconTool 0.0.3
 
 A version that can be used normally.
 
-Put .ico file in every folder, then start the IconTool.py.
+Put `.ico` file in every folder, then start the IconTool.py.
 
 ## Nov 9, 2017 - Update IconTool 0.0.2
 
