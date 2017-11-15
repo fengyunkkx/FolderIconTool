@@ -25,6 +25,8 @@ D:\
 
 Enjoy it !
 
+![HowToUseFolderIconTool](imges/HowToUseFolderIconTool.gif)
+
 ## WARNING
 
 1. FolderIconTool is secure, it only modifies the `.ini` configuration file. But on the safe side, you'd better try in the empty folder first before use it in the important folder.
@@ -59,6 +61,8 @@ D:\
 
 3. 运行 FolderIconTool，就可以自动将该目录下的所有文件夹添加图标。
 
+![HowToUseFolderIconTool](imges/HowToUseFolderIconTool.gif)
+
 ## 注意事项
 
 1. 尽管 FolderIconTool 很安全，只会修改 `.ini` 配置文件，但在对重要文件夹设置图标之前。最好先在空文件夹中尝试一下，以免与预期不符。
@@ -70,6 +74,12 @@ D:\
 4. 我生成了一个测试版的 `.exe`，但是目前很不稳定，如果电脑上有 python 3.5，建议使用 .py 直接运行。
 
 # Update log
+
+## Nov 14, 2017 - Update FolderIconTool 0.0.6
+
+Add TestEnvironment , you can test FolderIconTool in the TestEnvironment.
+
+Fix some bug.
 
 ## Nov 13, 2017 - Update FolderIconTool 0.0.5
 
